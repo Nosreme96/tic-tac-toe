@@ -1,18 +1,55 @@
 
 body{
     background-color: lightblue;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .container{
     width:100vw;
-    height:9000px;
+    height:1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10vh;
+}
+.menu, .gameboard, .start{
+    margin: 10px;
+    font-size: max(1.5vw, 12px);
+}
+.player1, .player2{
+    margin-top: 10px;
+}
+label, input{
+    margin: 0;
+    padding-left: 10px;
+    font-size: max(1.5vw, 12px);
+
+}
+.input{
+    appearance: none;
+}
+.title{
+    margin: 20px;
+    font-size: max(2vw,12px);
+    font-weight: bolder;
+}
+.winner{  
+    font-weight: bolder;     
+    margin-top: min(20%,300px);
+    font-size: max(3vw,32px);
+}
+.restart{
+    font-weight: normal;
+    margin: auto;
+    width: max-content;
+    padding: 10px;
+    border: gray 5px solid;
+    border-radius: 5px;
+}
+.menu{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.menu, .scoreboard, .gameboard{
-    margin: 20px;
-}
-
 .gameboard{
     width:  max(250px,50vw);
     height: max(250px,50vw);
@@ -30,6 +67,7 @@ body{
     flex: 1;
     background-color: rgb(194, 194, 194);
     border: black solid 1px;
+    display: flex;
 }
 .tic{
     width: 100%;
@@ -47,10 +85,49 @@ body{
 
 }
 .win{
-    border: yellow solid 3px;
+    background-color: yellow;
 }
 .clicked{
+    flex: 1;
     border-radius: 3px;
 }
+.ph{
+    background-position: center;
+}
+.row:nth-child(1)>.ph:nth-child(1),
+.row:nth-child(2)>.ph:nth-child(1),
+.row:nth-child(3)>.ph:nth-child(1){
+    background-image: url(images/alpha-t-circle.svg);
+    background-repeat: no-repeat;
+}
+.row:nth-child(1)>.ph:nth-child(2){
+    background-image: url(images/alpha-i-circle.svg);
+    background-repeat: no-repeat;
+
+}
+.row:nth-child(2)>.ph:nth-child(2){
+    background-image: url(images/alpha-a-circle.svg);
+    background-repeat: no-repeat;
+
+}
+.row:nth-child(3)>.ph:nth-child(2){
+    background-image: url(images/alpha-o-circle.svg);
+    background-repeat: no-repeat;
+
+}
+.row:nth-child(1)>.ph:nth-child(3),
+.row:nth-child(2)>.ph:nth-child(3){
+    background-image: url(images/alpha-c-circle.svg);
+    background-repeat: no-repeat;
+
+}
+.row:nth-child(3)>.ph:nth-child(3){
+    background-image: url(images/alpha-e-circle.svg);
+    background-repeat: no-repeat;
+
+}
+
+
+
 
 

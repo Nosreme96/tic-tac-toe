@@ -1,5 +1,9 @@
+var winner; 
+var player1 = 'PLAYER 1';
+var player2 = 'PLAYER 2';
+var turn = 1;
 const gameBoard =(() =>{
-      
+     
     const create = (size) => //creates a dynamic grid with coordinates as class list
         {
             let gameboard = document.createElement('div');
@@ -30,7 +34,7 @@ const gameBoard =(() =>{
                             console.log(checkList[i]);
                             checkWinner(checkList[i]);
                         }
-                        turn++                   
+                        turn++                
                     }
                         else
                     {
@@ -59,13 +63,13 @@ const gameBoard =(() =>{
                 {
                 for(let y = -1; y>=-3; y--)
                 {
-                    let cell = document.createElement('div');
+
                     if(y%2 == 0)                
                     {
-                        document.getElementsByClassName(`${+x} ${+y}`)[0].classList.add('tic', 'clicked');
+                        document.getElementsByClassName(`${+x} ${+y}`)[0].classList.add('ph', 'clicked');
                     }
                     else{
-                        document.getElementsByClassName(`${+x} ${+y}`)[0].classList.add('tac', 'clicked');   
+                        document.getElementsByClassName(`${+x} ${+y}`)[0].classList.add('ph', 'clicked');   
                     }
                 }
                 }
@@ -73,13 +77,12 @@ const gameBoard =(() =>{
                 {
                     for(let y = -1; y>=-3; y--)
                 {
-                    let cell = document.createElement('div');
                     if(y%2 == 0)                
                     {
-                        document.getElementsByClassName(`${+x} ${+y}`)[0].classList.add('tac', 'clicked');
+                        document.getElementsByClassName(`${+x} ${+y}`)[0].classList.add('ph', 'clicked');
                     }
                     else{
-                        document.getElementsByClassName(`${+x} ${+y}`)[0].classList.add('tic', 'clicked');   
+                        document.getElementsByClassName(`${+x} ${+y}`)[0].classList.add('ph', 'clicked');   
                     }
                 }
                 }
@@ -110,7 +113,7 @@ const gameBoard =(() =>{
         let i2 = document.createElement('input');
         i2.type = 'text';
         i2.id = 'player2';
-        i2.placeholder = 'placeholder';
+        i2.placeholder = 'enter player 2 name';
         i2.pattern = '[a-zA-Z0-9]{1,20}';
         let btn = document.createElement('button');
         btn.className = 'start';
@@ -120,8 +123,10 @@ const gameBoard =(() =>{
         replace.appendChild(menu);
         let startbtn = document.getElementsByClassName('start')[0];
         startbtn.addEventListener('click',function remove(){
-            let player1 = document.getElementById('player1');
-            console.log(player1.value);
+        if(document.getElementById('player1').value.length>0) 
+            player1 = document.getElementById('player1').value;
+        if(document.getElementById('player2').value.length>0) 
+            player2 = document.getElementById('player2').value;
             this.parentNode.remove()
             let gameboard = document.getElementsByClassName('row')[0];
             gameboard.parentNode.remove();
@@ -129,7 +134,7 @@ const gameBoard =(() =>{
         });
         
     };
-    const checkWinner = (check) =>{
+    const checkWinner = (check) =>{//checks for three in a diagonal, antidiagonal, horizontal, and vertical
         let yd1 = ((+check.classList[0])-1);
         let xd1 = ((+check.classList[1])+1);
         let yd2 = ((+check.classList[0])+1);
@@ -169,22 +174,24 @@ const gameBoard =(() =>{
             if((d1 != null && d1.classList.contains('clicked') && d2 != null && d2.classList.contains('clicked')) && (d1.classList.contains('tic') && d2.classList.contains('tic')) )
             {
                 d1.classList.add('win'); check.classList.add('win'); d2.classList.add('win');
-                console.log('tic won'); setTimeout ( () => {gameStop()}, 1000);
+    
+                winner = player1; console.log(winner); setTimeout ( () => {gameStop(); congrats(winner);}, 1000); 
             }
             else if((ad1 != null && ad1.classList.contains('clicked') && ad2 != null && ad2.classList.contains('clicked')) && (ad1.classList.contains('tic') && ad2.classList.contains('tic')))
             {
                 ad1.classList.add('win'); check.classList.add('win'); ad2.classList.add('win');
-                console.log('tic won'); setTimeout ( () => {gameStop()}, 1000);
+                winner = player1; console.log(winner);; setTimeout ( () => {gameStop(); congrats(winner);}, 1000); 
             }
             else if((h1 != null && h1.classList.contains('clicked') && h2 != null && h2.classList.contains('clicked')) && (h1.classList.contains('tic') && h2.classList.contains('tic')) )
             {
                 h1.classList.add('win'); check.classList.add('win'); h2.classList.add('win');
-                console.log('tic won'); setTimeout ( () => {gameStop()}, 1000);            
+                winner = player1; console.log(winner);; setTimeout ( () => {gameStop(); congrats(winner);}, 1000); 
+                        
             }   
             else if((v1 != null && v1.classList.contains('clicked') && v2 != null && v2.classList.contains('clicked')) && (v1.classList.contains('tic') && v2.classList.contains('tic')) )
             {
                 v1.classList.add('win'); check.classList.add('win'); v2.classList.add('win');
-                console.log('tic won'); setTimeout ( () => {gameStop()}, 1000);
+                winner = player1; console.log(winner);; setTimeout ( () => {gameStop(); congrats(winner);}, 1000); 
             }        
         }
         else if(turn == 2)
@@ -201,45 +208,64 @@ const gameBoard =(() =>{
             {
                 d1.classList.add('win'); check.classList.add('win'); d2.classList.add('win');
 
-                console.log('tac won'); setTimeout ( () => {gameStop()}, 1000);
+                winner = player2; console.log('tac won'); setTimeout ( () => {gameStop(); congrats(winner);}, 1000); 
             }
             else if((ad1 != null && ad1.classList.contains('clicked') && ad2 != null && ad2.classList.contains('clicked')) && (ad1.classList.contains('tac') && ad2.classList.contains('tac')))
             {
                 ad1.classList.add('win'); check.classList.add('win'); ad2.classList.add('win');
 
-                console.log('tac won'); setTimeout ( () => {gameStop()}, 1000);
+                winner = player2; console.log('tac won'); setTimeout ( () => {gameStop(); congrats(winner);}, 1000); 
             }
             else if((h1 != null && h1.classList.contains('clicked') && h2 != null && h2.classList.contains('clicked')) && (h1.classList.contains('tac') && h2.classList.contains('tac')))
             {
                 h1.classList.add('win'); check.classList.add('win'); h2.classList.add('win');
 
-                console.log('tac won'); setTimeout ( () => {gameStop()}, 1000);            
+                winner = player2; console.log('tac won'); setTimeout ( () => {gameStop(); congrats(winner);}, 1000);             
             }   
             else if((v1 != null && v1.classList.contains('clicked') && v2 != null && v2.classList.contains('clicked')) && (v1.classList.contains('tac') && v2.classList.contains('tac')))
             {
     
                 v1.classList.add('win'); check.classList.add('win'); v2.classList.add('win');
 
-                console.log('tac won'); setTimeout ( () => {gameStop()}, 1000);
+                winner = player2; console.log('tac won'); setTimeout ( () => {gameStop(); congrats(winner);}, 1000); 
             }        
         }
+    }
+    const congrats = (winner) => {
+        let msg = document.createElement('div');
+        msg.className = 'winner';
+        let msgbody = document.createElement('p');
+        msgbody.innerHTML = `${winner} WINS!`;
+        msg.appendChild(msgbody);
+        document.getElementsByClassName('container')[0].appendChild(msg);
+        let restartgame = document.createElement('div');
+        restartgame.className = 'restart';
+        restartgame.innerHTML = 'restart';
+        restartgame.addEventListener('click',function restart(){
+            this.parentNode.remove();
+            gameFlow();
+        })
+        msg.appendChild(restartgame);
+        document.getElementsByClassName('container')[0].appendChild(msg);
+
     }
     const gameStop = () =>{
         document.getElementsByClassName('row')[0].parentNode.remove();
     }
-    var turn = 1;
-    return {create, placeHolder, menu, turn, checkWinner, gameStop};
+    return {create, placeHolder, menu, turn, checkWinner, gameStop, congrats};
     })();
 
-const playerFactory = ((name,number) => {
-    return {name, number};
-})();
+const playerFactory =   (name = 'PLAYER',number) => {
+    {
+        return {name, number};
+}};
 
 const gameFlow = ()=>{
+    turn = 1;
     gameBoard.menu();
     gameBoard.placeHolder();
-    var cont = true;
 };
+gameFlow();
 
 
 
